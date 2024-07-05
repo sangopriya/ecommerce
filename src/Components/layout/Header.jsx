@@ -7,13 +7,13 @@ import { Link } from 'react-router-dom';
 
 export default function Header() {
     const cart = useSelector(state => state.cart);
-    // console.log(cart)
+    console.log(cart)
     const cartItemCount = cart.reduce((count, item) => count + item.quantity, 0);
     return (
         <div className='bg-gray-200 p-4 justify-between flex px-5'>
-            <div>
+            <Link to={'/'}>
                 Logo
-            </div>
+            </Link>
             <div className="flex items-center justify-center cursor-pointer ">
             <Link to={'/cart'} className="relative scale-75">
                     <FaCartShopping className='h-8 w-8 text-gray-600 text-3xl' />

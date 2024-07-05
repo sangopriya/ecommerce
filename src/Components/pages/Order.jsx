@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 export default function Order() {
   const orders = useSelector((state) => state.orders);
+  console.log(orders)
 
   return (
     <section className='px-5'>

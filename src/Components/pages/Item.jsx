@@ -34,17 +34,20 @@ export default function Item() {
       {items.items.map(item => {
           const cartItem = cartItems.find(cartItem => cartItem.id === item.id);
           return (
-            <div key={item.id} className='flex flex-col border-4 border-solid border-gray lg:w-92 cursor-pointer'>
+          
+            <div key={item.id} className='flex flex-col  border border-solid border-gray lg:w-92 cursor-pointer'>
+              <Link  to={`/item/${item.id}`}>
               <img className='h-80' src={item.img} alt={item.name} />
               <div className='flex flex-col p-2'>
                 <div className='flex items-start w-full justify-start py-2 '>{item.name}</div>
                 <div className='flex items-start w-full justify-start py-2 text-3xl'>₹ {item.price}</div>
               </div>
+              </Link>
               {cartItem ? (
                 <div className='flex justify-between font-bold border border-solid border-gray'>
-                  <button className='border-2 border-solid border-gray p-5 text-lg' onClick={() => dispatch(updateQuantity(item.id, cartItem.quantity + 1))}>+</button>
-                  <span className='border-2 border-solid border-gray flex items-center justify-center p-5'>{cartItem.quantity}</span>
-                  <button className='border-2 border-solid border-gray p-5 text-lg' onClick={() => {
+                  <button className='border border-solid border-gray p-5 text-lg' onClick={() => dispatch(updateQuantity(item.id, cartItem.quantity + 1))}>+</button>
+                  <span className='border border-solid border-gray flex items-center justify-center p-5'>{cartItem.quantity}</span>
+                  <button className='border border-solid border-gray p-5 text-lg' onClick={() => {
                     if (cartItem.quantity > 1) {
                       dispatch(updateQuantity(item.id, cartItem.quantity - 1));
                     } else {
@@ -53,9 +56,10 @@ export default function Item() {
                   }}>-</button>
                 </div>
               ) : (
-                <Link to={`/item/${item.id}`} onClick={() => handleAddToCart(item)} className="bg-blue-500 text-white p-5 text-center">Add to Cart</Link>
+                <Link  onClick={() => handleAddToCart(item)} className="bg-blue-500 text-white p-5 text-center">Add to Cart</Link>
               )}
             </div>
+   
           );
         })}
       </div>

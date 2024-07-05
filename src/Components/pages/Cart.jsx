@@ -1,27 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { updateQuantity, removeFromCart } from '../../store/actions/cartAction';
-import { placeOrder } from '../../store/actions/orderAction';
+import { PLACE_ORDER } from '../../store/types';
 
 export default function Cart() {
   const dispatch = useDispatch();
-
+  const cart = useSelector(state => state.cart);
   const { id } = useParams();
   const itemId = parseInt(id);
-  const cart = useSelector(state => state.cart);
   const cartItem = cart.find(cartItem => cartItem.id === itemId);
-  const [quantity, setQuantity] = useState(cartItem ? cartItem.quantity : 0);
 
   const handleAdd = (item) => {
     const newQuantity = item.quantity + 1;
-    setQuantity(newQuantity);
     dispatch(updateQuantity(item.id, newQuantity));
   };
 
   const handleSubtract = (item) => {
     const newQuantity = item.quantity - 1;
-    setQuantity(newQuantity);
     if (newQuantity > 0) {
       dispatch(updateQuantity(item.id, newQuantity));
     } else {
@@ -30,8 +26,7 @@ export default function Cart() {
   };
 
   const handlePlaceOrder = () => {
-    dispatch(placeOrder(cart));
-   
+    dispatch({ type: PLACE_ORDER, payload: cart });
   };
 
   const totalAmount = cart.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -48,7 +43,7 @@ export default function Cart() {
                     <div className='md:w-28 flex justify-center'>
                       <img src={item.img} alt={item.name} />
                     </div>
-                    <div className='flex  flex-col items-center justify-center px-2'>
+                    <div className='flex flex-col items-center justify-center px-2'>
                       <h1>{item.name}</h1>
                       <h1>Price: {item.price}</h1>
                     </div>

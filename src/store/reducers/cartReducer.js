@@ -1,4 +1,4 @@
-import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, UPDATE_QUANTITY } from '../types';
+import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, UPDATE_QUANTITY, PLACE_ORDER } from '../types';
 
 const cartReducer = (state = [], action) => {
   switch (action.type) {
@@ -27,6 +27,8 @@ const cartReducer = (state = [], action) => {
       );
     case CLEAR_CART:
       return [];
+    case PLACE_ORDER:
+      return [];  // Clear the cart
     default:
       return state;
   }
